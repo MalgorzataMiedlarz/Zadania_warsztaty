@@ -1,4 +1,4 @@
-package podstawa;
+package zadanie_1;
 
 import org.junit.After;
 import org.junit.Before;
