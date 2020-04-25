@@ -1,7 +1,8 @@
-package zadanie_1;
+package zadanie_4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class Zadanie {
+import static org.junit.Assert.*;
 
+public class Zadanie {
     private WebDriver driver;
     private WebElement firstNameInput;
     private WebElement lastNameInput;
@@ -25,6 +27,15 @@ public class Zadanie {
     private WebElement comment;
     private WebElement submit;
     private Select role;
+
+    String firstNameValue = "Karol";
+    String lastNameValue = "Kowalski";
+    String dateOfBirthValue = "05/22/2010";
+    String addressValue = "Prosta 51";
+    String emailValue = "karol.kowalski@mailinator.com";
+    String passwordValue = "Pass123";
+    String companyValue = "Coders Lab";
+    String commentValue = "To jest mój pierwszy automat testowy";
 
     @Before
     public void setUp() {
@@ -51,23 +62,38 @@ public class Zadanie {
     }
 
     @Test
-    public void fillForm() {
-        firstNameInput.sendKeys("Karol");
-        lastNameInput.sendKeys("Kowalski");
+    public void shouldFillForm() {
+        getZadanie4Done(firstNameInput, firstNameValue);
+        getZadanie4Done(lastNameInput, lastNameValue);
         gendersRadioButtons.get(0).click();
-        dateOfBirthPicker.sendKeys("05/22/2010");
-        address.sendKeys("Prosta 51");
-        email.sendKeys("karol.kowalski@mailinator.com");
-        password.sendKeys("Pass123");
-        company.sendKeys("Coders Lab");
+        assertTrue(gendersRadioButtons.get(0).isSelected());
+        assertFalse(gendersRadioButtons.get(1).isSelected());
+        assertFalse(gendersRadioButtons.get(2).isSelected());
+        getZadanie4Done(dateOfBirthPicker, dateOfBirthValue);
+        getZadanie4Done(address, addressValue);
+        getZadanie4Done(email, emailValue);
+        getZadanie4Done(password, passwordValue);
+        getZadanie4Done(company, companyValue);
         role.selectByVisibleText("Manager");
-        comment.sendKeys("To jest mój pierwszy automat testowy");
+        assertNotNull(role);
+        getZadanie4Done(comment, commentValue);
+        submit.isDisplayed();
         submit.click();
     }
 
+
     @After
-    public void tearDown() throws Exception {
+    @Ignore
+    public void tearDown() {
         // Zamknij przeglądarkę
         driver.quit();
+    }
+
+    private void getZadanie4Done(WebElement webElement, String fillValue) {
+        assertTrue(webElement.isDisplayed());
+        System.out.println(webElement.getAttribute("name") + ": " + fillValue);
+        webElement.sendKeys(fillValue);
+        assertNotNull(webElement);
+        assertEquals(webElement.getAttribute("value"), fillValue);
     }
 }
