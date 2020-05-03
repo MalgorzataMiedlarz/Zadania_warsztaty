@@ -23,6 +23,7 @@ public class LoginTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);driver.manage().window().maximize();
         driver.get("https://prod-kurs.coderslab.pl/index.php?controller=authentication");
     }
+
     @Test
     public void testLoginWithProperCredentials() {
         LoginPage loginPage = new LoginPage(driver);

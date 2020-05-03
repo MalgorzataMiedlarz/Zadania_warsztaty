@@ -7,10 +7,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageObjectPattern.pages.HeaderComponent;
-import pageObjectPattern.pages.LoginPage;
-import pageObjectPattern.pages.MyAccountPage;
-import pageObjectPattern.pages.UserInfoPage;
+import pageObjectPattern.pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +17,8 @@ public class ChangeUserInfoSteps {
     HeaderComponent headerComponent;
     LoginPage loginPage;
     UserInfoPage userInfoPage;
+    AddressesPage addressesPage;
+    NewAddressPage newAddressPage;
     WebDriver driver;
 
     @Given("^User is logged in to CodersLab shop$")
@@ -29,12 +28,13 @@ public class ChangeUserInfoSteps {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
         driver.get("https://prod-kurs.coderslab.pl/index.php?controller=authentication");
         loginPage = new LoginPage(driver);
         userInfoPage = new UserInfoPage(driver);
         myAccountPage = new MyAccountPage(driver);
         headerComponent = new HeaderComponent(driver);
+        addressesPage = new AddressesPage(driver);
+        newAddressPage = new NewAddressPage(driver);
         loginPage.loginAs("michal.dobrzycki@coderslab.pl", "CodersLab");
     }
 
@@ -64,9 +64,6 @@ public class ChangeUserInfoSteps {
         Assert.assertEquals(message, userInfoPage.getUpdateInformation());
     }
 
-    @And("User close window")
-    public void userCloseWindow() {
-        loginPage.getDriver().close();
-    }
-
+    @And("^User close window$")
+    public void userCloseWindow() {driver.close();    }
 }
