@@ -15,5 +15,5 @@
 log/
 target/
 
-#Cucumber reports
+#cucumber reports
 out/
