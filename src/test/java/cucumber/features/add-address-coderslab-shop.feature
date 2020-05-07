@@ -10,12 +10,14 @@ Feature: Add address coderslab shop
     And a <postalcode> is entered in zip/postalcode input field
     And a <country> is chosen from dropdown list
     And a <phone> is entered in phone input field
-    Then check the correctness of the data
-    And submit
+    Then an addres is deleted
     And close browser
 
     Examples:
       |alias|address   |city  |postalcode|phone|
-      |dom  |Koralowa10|Wyzima|12-345     |7777 |
+      |dom  |Koralowa10|Wyzima|12-345    |7777 |
+
+
+
 
 

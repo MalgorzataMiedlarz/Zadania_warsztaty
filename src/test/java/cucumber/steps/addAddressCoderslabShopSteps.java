@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertEquals;
+
 public class addAddressCoderslabShopSteps {
     private WebDriver driver;
 
@@ -43,7 +45,6 @@ public class addAddressCoderslabShopSteps {
         }
     }
 
-
     @When("user goes to your address site")
     public void goToYourAddress() {
         WebElement addressSite = driver.findElement(By.cssSelector("#addresses-link"));
@@ -56,54 +57,69 @@ public class addAddressCoderslabShopSteps {
         clickOnCreateNewAddressButton.click();
     }
 
-    @And("^an alias <alias> is entered in alias input field$")
-    public void anAliasAliasIsEnteredInAliasInputField(String alias) {
-        WebElement anAliasAliasIsEnteredInAliasInputField = driver.findElement(By.name("alias"));
-        anAliasAliasIsEnteredInAliasInputField.sendKeys(alias);
+    @And("an alias (.*)is entered in alias input field")
+    public void aliasInput(String alias) {
+        WebElement aliasIn = driver.findElement(By.name("alias"));
+        aliasIn.sendKeys(alias);
+        assertEquals("dom ",alias);
     }
 
-    @And("^an <address> is entered in address input field$")
+    @And("an (.*) is entered in address input field")
     public void anAddressIsEnteredInAddressInputField(String address) {
         WebElement addressInput = driver.findElement(By.name("address1"));
         addressInput.sendKeys(address);
+        assertEquals("Koralowa10", address);
     }
 
-    @And("^a <city> is entered in city input field$")
+    @And("a (.*) is entered in city input field")
     public void aCityIsEnteredInCityInputField(String city) {
         WebElement cityInput = driver.findElement(By.name("city"));
         cityInput.sendKeys(city);
+        assertEquals("Wyzima",city);
     }
 
-    @And("^a <postalcode> is entered in zip/postalcode input field$")
+    @And("a (.*) is entered in zip/postalcode input field")
     public void aPostalcodeIsEnteredInZipPostalcodeInputField(String postalcode) {
         WebElement postalcodeInput = driver.findElement(By.name("postcode"));
         postalcodeInput.sendKeys(postalcode);
+        assertEquals("12-345", postalcode);
     }
 
-    @And("^a <country> is chosen from dropdown list$")
-        public void aCountryIsChosenFromDropdownList() {
-            Select countryInput = new Select(driver.findElement(By.name("id_country")));
-            countryInput.selectByVisibleText("United Kingdom");
-        }
-
-        @And("^a <phone> is entered in phone input field$")
-        public void aPhoneIsEnteredInPhoneInputField(String phone){
-            WebElement phoneInput = driver.findElement(By.name("phone"));
-            phoneInput.sendKeys(phone);
-        }
-
-        @Then("^check the correctness of the data$")
-        public void checkTheCorrectnessOfTheData() {
-        }
-
-        @And("^submit$")
-        public void submit () {
-        }
-
-//    @And("^close browser$")
-//    public void closeBrowser() {
-//        driver.close();
-//    }
-
+    @And("a <country> is chosen from dropdown list")
+    public void aCountryIsChosenFromDropdownList() {
+        Select countryInput = new Select(driver.findElement(By.name("id_country")));
+        countryInput.selectByVisibleText("United Kingdom");
     }
+
+    @And("a (.*) is entered in phone input field")
+    public void aPhoneIsEnteredInPhoneInputField(String phone) {
+        WebElement phoneInput = driver.findElement(By.name("phone"));
+        phoneInput.sendKeys(phone);
+        assertEquals("7777", phone);
+        phoneInput.submit();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Then("^an addres is deleted$")
+    public void anAddresIsDeleted() {
+        WebElement deleteAddres;
+        deleteAddres = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div[2]/article/div[2]/a[2]"));
+        deleteAddres.click();
+    }
+
+
+    @And("^close browser$")
+    public void closeBrowser() {
+        driver.close();
+    }
+
+
+}
+
+
+
 
