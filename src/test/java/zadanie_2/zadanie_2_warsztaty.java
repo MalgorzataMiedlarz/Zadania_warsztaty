@@ -109,14 +109,11 @@ public class zadanie_2_warsztaty {
       e.printStackTrace();
     }
     try {
-      //take screenshot and save it in a file
       File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-      //copy the file to the required path
       FileUtils.copyFile(screenshot, new File("/home/gosia/Pulpit/potwierdzanie_zamówienia.png"));
 
     } catch (Exception e) {
-      //if it fails to take screenshot then this block will execute
       System.out.println("Failure to take screenshot " + e);
     }
 
