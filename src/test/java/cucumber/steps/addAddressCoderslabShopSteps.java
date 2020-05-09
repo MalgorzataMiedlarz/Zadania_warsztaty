@@ -8,12 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -102,6 +97,9 @@ public class addAddressCoderslabShopSteps {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        WebElement checkIsAddressAdded = driver.findElement(By.xpath("//aside/div/article/ul/li"));
+        assertEquals("Address successfully added!", checkIsAddressAdded.getText());
+
     }
 
     @Then("^an addres is deleted$")
@@ -109,8 +107,11 @@ public class addAddressCoderslabShopSteps {
         WebElement deleteAddres;
         deleteAddres = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div[2]/article/div[2]/a[2]"));
         deleteAddres.click();
-    }
 
+        WebElement checkIsAddressDeleted = driver.findElement(By.xpath("//aside/div/article/ul/li"));
+        assertEquals("Address successfully deleted!", checkIsAddressDeleted.getText());
+
+    }
 
     @And("^close browser$")
     public void closeBrowser() {
